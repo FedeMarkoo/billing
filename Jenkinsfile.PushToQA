@@ -6,7 +6,7 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn clean -f pom-sonar.xml"
+                    sh "mvn clean -f sol-service-billing-view/pom.xml"
                     // sh "mvn weblogic:undeploy -P E78_9010,weblogic,!tomcat -f sol-service-billing-view/pom.xml"
                 }
             }
@@ -16,7 +16,7 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f pom-sonar.xml -U"
+                    sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f sol-service-billing-view/pom.xml -U"
                 }
             }
         }
@@ -27,7 +27,6 @@ pipeline {
                 ) {
                     sh '''$list=$(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml)'''
                     sh "echo list"
-                    sh "mvn weblogic:deploy -P dev -f sol-service-billing-view/pom.xml"
                     sh "mvn weblogic:deploy -P dev -f sol-service-billing-view/pom.xml"
                 }
             }
