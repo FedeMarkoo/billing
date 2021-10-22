@@ -7,7 +7,7 @@
     <artifactId>sol-service-billing-view-quality-metrics</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
-    <name>PRO SOL SERVICE BILLING QUALITY METRICS</name>
+    <name>TEST</name>
 
     <modules>
         <module>sol-service-billing-view</module>
