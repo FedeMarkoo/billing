@@ -24,7 +24,9 @@ pipeline {
             steps {
                 withMaven(
                 ) {
-                    sh "list=$(mvn weblogic:list-apps -P E78_9010 -f sol-service-billing-view/pom.xml)"
+                    sh '''
+                    list=$(mvn weblogic:list-apps -P E78_9010 -f sol-service-billing-view/pom.xml)
+                    '''
                     sh "echo list"
                     sh "mvn weblogic:deploy -P E78_9010 -f sol-service-billing-view/pom.xml"
                     sh "mvn weblogic:deploy -P E78_9010 -f sol-service-billing-view/pom.xml"
