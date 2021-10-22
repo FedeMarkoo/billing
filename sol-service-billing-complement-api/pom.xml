@@ -7,7 +7,7 @@
     <groupId>com.prosegur</groupId>
     <artifactId>sol-service-billing-complement-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>${packagingType:war}</packaging>
+    <packaging>${packagingType}</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -17,6 +17,7 @@
     </parent>
 
     <properties>
+        <packagingType>war</packagingType>
         <java.version>1.8</java.version>
         <org.mapstruct.version>1.4.1.Final</org.mapstruct.version>
         <commons.collection.version>3.2.1</commons.collection.version>
