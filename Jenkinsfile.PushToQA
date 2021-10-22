@@ -6,7 +6,7 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn clean"
+                    sh "mvn clean -f pom-sonar.xml"
                     // sh "mvn weblogic:undeploy -P E78_9010,weblogic,!tomcat -f sol-service-billing-view/pom.xml"
                 }
             }
