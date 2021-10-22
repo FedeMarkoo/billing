@@ -1,0 +1,52 @@
+pipeline {
+    agent any
+    stages {
+        stage("build") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn clean install -Pqa-9010 -f sol-service-billing-view/pom.xml"
+                    sh "mvn clean install -Pqa-9010 -f sol-service-billing-complement-api/pom.xml"
+                }
+            }
+        }
+        stage("deploy artifacts") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn deploy -Dmaven.test.skip=true -Pqa-9010 -f sol-service-billing-view/pom.xml"
+                    sh "mvn deploy -Dmaven.test.skip=true -Pqa-9010 -f sol-service-billing-complement-api/pom.xml"
+                }
+            }
+        }
+        stage("publish container image") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn com.google.cloud.tools:jib-maven-plugin:build@deploy-image-to-nexus -Dimage=10.54.192.18:30550/sol-service-billing-view-dev:0.0.1-SNAPSHOT -Pnexus-docker -Dmaven.test.skip=true -DsendCredentialsOverHttp=true -Doracle.jdbc.timezoneAsRegion=false -Pqa-9010 -f sol-service-billing-view/pom.xml"
+                    sh "mvn com.google.cloud.tools:jib-maven-plugin:build@deploy-image-to-nexus -Dimage=10.54.192.18:30550/sol-service-billing-complement-api-dev:0.0.1-SNAPSHOT -Pnexus-docker -Dmaven.test.skip=true -DsendCredentialsOverHttp=true -Doracle.jdbc.timezoneAsRegion=false -Pqa-9010 -f sol-service-billing-complement-api/pom.xml"
+                }
+            }
+        }
+        stage("publish kubernetes") {
+            when { branch 'development' }
+            steps {
+                sh "scp sol-service-billing-view/deploy-dev/svc-sol-service-billing-view-dev.yaml k8s-client@10.54.192.17:/opt/deployments/k8s-deployments"
+                sh "scp sol-service-billing-view/deploy-dev/deploy-sol-service-billing-view-dev.yaml k8s-client@10.54.192.17:/opt/deployments/k8s-deployments"
+                sh "ssh k8s-client@10.54.192.17 kubectl apply -f /opt/deployments/k8s-deployments/svc-sol-service-billing-view-dev.yaml"
+                sh "ssh k8s-client@10.54.192.17 kubectl replace --force -f /opt/deployments/k8s-deployments/deploy-sol-service-billing-view-dev.yaml"
+
+                sh "scp sol-service-billing-complement-api/deploy-dev/svc-sol-service-billing-complement-api-dev.yaml k8s-client@10.54.192.17:/opt/deployments/k8s-deployments"
+                sh "scp sol-service-billing-complement-api/deploy-dev/deploy-sol-service-billing-complement-api-dev.yaml k8s-client@10.54.192.17:/opt/deployments/k8s-deployments"
+                sh "ssh k8s-client@10.54.192.17 kubectl apply -f /opt/deployments/k8s-deployments/svc-sol-service-billing-complement-api-dev.yaml"
+                sh "ssh k8s-client@10.54.192.17 kubectl replace --force -f /opt/deployments/k8s-deployments/deploy-sol-service-billing-complement-api-dev.yaml"
+            }
+        }
+    }
+}

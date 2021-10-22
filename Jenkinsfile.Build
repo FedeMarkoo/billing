@@ -1,0 +1,14 @@
+pipeline {
+    agent any
+    stages {
+        stage("validate and test") {
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn validate compile test -P E78_9010,weblogic,!tomcat -f pom-sonar.xml"
+                }
+            }
+        }
+    }
+}

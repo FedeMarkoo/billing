@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage("clean and undeploy") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                   configFileProvider([configFile(fileId: '2b07a9dc-6e75-4ce7-bc6c-3300896f5838', variable: 'MAVEN_SETTINGS')]) {
+                        sh "mvn clean com.oracle.weblogic:weblogic-maven-plugin:12.2.1-2-0:undeploy -s $MAVEN_SETTINGS -Dmaven.test.skip=true -PE71_9020 -f pom-sonar.xml"
+                    }
+                }
+            }
+        }
+        stage("install and deploy") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                 configFileProvider([configFile(fileId: '2b07a9dc-6e75-4ce7-bc6c-3300896f5838', variable: 'MAVEN_SETTINGS')]) {
+                        sh "mvn install com.oracle.weblogic:weblogic-maven-plugin:12.2.1-2-0:deploy -s $MAVEN_SETTINGS -Dmaven.test.skip=true -PE71_9020 -f pom-sonar.xml"
+                    }
+                }
+            }
+        }
+    }
+}

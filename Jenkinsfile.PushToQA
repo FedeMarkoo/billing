@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    stages {
+        stage("clean") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn clean"
+                    // sh "mvn weblogic:undeploy -P E78_9010,weblogic,!tomcat -f sol-service-billing-view/pom.xml"
+                }
+            }
+        }
+        stage("install") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f pom-sonar.xml"
+                }
+            }
+        stage("deploy") {
+            when { branch 'development' }
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "$list = $(mvn weblogic:list-apps -P E78_9010 -f sol-service-billing-view/pom.xml)"
+                    sh "echo list"
+                    sh "mvn weblogic:deploy -P E78_9010 -f sol-service-billing-view/pom.xml"
+                    sh "mvn weblogic:deploy -P E78_9010 -f sol-service-billing-view/pom.xml"
+                }
+            }
+        }
+    }
+}
