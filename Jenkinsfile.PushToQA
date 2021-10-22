@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage("clean") {
             steps {
-                withMaven(
+                withMaven(maven: 'mvn'
                 ) {
                     sh "mvn clean"
                     // sh "mvn weblogic:undeploy -P E78_9010,weblogic,!tomcat -f sol-service-billing-view/pom.xml"
@@ -12,7 +12,7 @@ pipeline {
         }
         stage("install") {
             steps {
-                withMaven(
+                withMaven(maven: 'mvn'
                 ) {
                     sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f pom-sonar.xml"
                 }
@@ -20,7 +20,7 @@ pipeline {
 		}
         stage("deploy") {
             steps {
-                withMaven(
+                withMaven(maven: 'mvn'
                 ) {
                     sh '''
                     list=$(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml)
