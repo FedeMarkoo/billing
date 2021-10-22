@@ -80,9 +80,8 @@
         </dependency>
         <dependency>
             <groupId>com.oracle</groupId>
-            <artifactId>ojdbc7</artifactId>
-            <version>12.1.0.2.0</version>
-            <scope>runtime</scope>
+            <artifactId>ojdbc</artifactId>
+            <version>12.2.0.1</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
