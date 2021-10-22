@@ -28,7 +28,7 @@ pipeline {
                     //sh '''list=$(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml)'''
                     //sh "echo $list"
                     //sh "mvn weblogic:deploy -P dev -f sol-service-billing-view/pom.xml"
-                    sh "mvn weblogic:list -P dev -f sol-service-billing-view/pom.xml"
+                    sh "mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml"
                 }
             }
         }
