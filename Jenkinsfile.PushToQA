@@ -2,7 +2,6 @@ pipeline {
     agent any
     stages {
         stage("clean") {
-            when { branch 'development' }
             steps {
                 withMaven(
                     maven: "MAVEN_3_6_3",
@@ -13,7 +12,6 @@ pipeline {
             }
         }
         stage("install") {
-            when { branch 'development' }
             steps {
                 withMaven(
                     maven: "MAVEN_3_6_3",
@@ -23,7 +21,6 @@ pipeline {
             }
         }
         stage("deploy") {
-            when { branch 'development' }
             steps {
                 withMaven(
                     maven: "MAVEN_3_6_3",
