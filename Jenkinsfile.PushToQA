@@ -11,12 +11,21 @@ pipeline {
                 }
             }
         }
+        stage("compile and update dependencies") {
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn compile -Dmaven.test.skip=true -f sol-service-billing-view/pom.xml -U"
+                }
+            }
+        }
         stage("install") {
             steps {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f sol-service-billing-view/pom.xml -U"
+                    sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f sol-service-billing-view/pom.xml"
                 }
             }
         }
