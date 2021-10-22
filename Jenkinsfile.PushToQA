@@ -21,6 +21,7 @@ pipeline {
                     sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f pom-sonar.xml -U"
                 }
             }
+        }
         stage("deploy") {
             when { branch 'development' }
             steps {
