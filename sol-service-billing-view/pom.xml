@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.prosegur</groupId>
             <artifactId>nilo-security-spring-boot-starter</artifactId>
-            <version>0.1.2-SNAPSHOT</version>
+            <version>0.1.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -65,7 +65,7 @@
         <dependency>
             <groupId>com.prosegur</groupId>
             <artifactId>pro-data-service-rest-spring-boot-starter</artifactId>
-            <version>0.1.2-SNAPSHOT</version>
+            <version>0.1.4-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>com.prosegur</groupId>
