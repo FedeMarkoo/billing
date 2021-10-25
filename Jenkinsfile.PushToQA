@@ -6,7 +6,7 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                     sh '''(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml) |
+                     sh '''(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml)
                             | grep -Eq 'sol-service-billing-view-1.3.0-SNAPSHOT-DEV'; 
                      '''
                 }
