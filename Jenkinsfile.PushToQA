@@ -6,12 +6,11 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                     sh '''list=$(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr " " "\n")
-
-                            for addr in $list
+                     sh '''
+                            for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr " " "\n")
                             do
-                                if [[ $addr == "sol-service-billing-view"* ]]; then
-                                    echo $addr
+                                if [[ $app == "sol-service-billing-view"* ]]; then
+                                     mvn weblogic:undeploy -P E78_9010,weblogic,!tomcat -f sol-service-billing-view/pom.xml -name $app.war
                                 fi
                             done
                            
