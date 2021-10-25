@@ -16,7 +16,8 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn compile -Dmaven.test.skip=true -f sol-service-billing-view/pom.xml -U"
+                    sh "mvn com.oracle.maven:oracle-maven-sync:push -Doracle-maven-sync.oracleHome=%ORACLE_HOME% -Doracle-maven-sync.testingOnly=false"
+//                    sh "mvn compile -Dmaven.test.skip=true -f sol-service-billing-view/pom.xml -U"
                 }
             }
         }
