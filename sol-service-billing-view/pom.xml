@@ -180,33 +180,35 @@
                 <cache.host>localhost</cache.host>
                 <cache.port>6379</cache.port>
 
-                  <server.timezone>America/Sao_Paulo</server.timezone>
-                  <destination.server>t3://localhost:7001</destination.server>
-                  <jms.server.url>t3://localhost:7001</jms.server.url>
-                  <context.root.base>/sol</context.root.base>
-                  <context.root.monitoring>/monitoring</context.root.monitoring>
-                  <context.root.main>/sol-main-view-${project.version}</context.root.main>
-                  <context.root.gest.solicitudes>/sol-gest-solicitudes-view-${project.version}</context.root.gest.solicitudes>
-                  <context.root.programacion>/sol-programacion-view-1.1.0.0.1</context.root.programacion>
-                  <context.root.employee>/sol-employee-view-${project.version}</context.root.employee>
-                  <context.root.reportparam>/sol-report-param-${project.version}</context.root.reportparam>
-                  <server.url>localhost:7001</server.url>
-                  <password.server>weblogic1</password.server>
-                  <user.server>weblogic</user.server>
-                  <admin.url.server>t3://localhost:7001</admin.url.server>
-                  <deploy-targets>AdminServer</deploy-targets>
-                  <destination.cache>t3://localhost:7001</destination.cache>
-                  <build_name>DEV</build_name>
-                  <app.version>${project.version}</app.version>
-                  <build.standalone.folder>C:/environment/builds/DEV/standalone</build.standalone.folder>
-                  <domain.home>C:\environment\sw\Oracle\Middleware12212\Oracle_Home\user_projects\domains\cash</domain.home>
-                  <project.logging.level>FINE</project.logging.level>
-                  <jre.version>1.8.0_172_32</jre.version>
+                <server.timezone>America/Sao_Paulo</server.timezone>
+                <destination.server>t3://localhost:7001</destination.server>
+                <jms.server.url>t3://localhost:7001</jms.server.url>
+                <context.root.base>/sol</context.root.base>
+                <context.root.monitoring>/monitoring</context.root.monitoring>
+                <context.root.main>/sol-main-view-${project.version}</context.root.main>
+                <context.root.gest.solicitudes>/sol-gest-solicitudes-view-${project.version}
+                </context.root.gest.solicitudes>
+                <context.root.programacion>/sol-programacion-view-1.1.0.0.1</context.root.programacion>
+                <context.root.employee>/sol-employee-view-${project.version}</context.root.employee>
+                <context.root.reportparam>/sol-report-param-${project.version}</context.root.reportparam>
+                <server.url>localhost:7001</server.url>
+                <password.server>weblogic1</password.server>
+                <user.server>weblogic</user.server>
+                <admin.url.server>t3://localhost:7001</admin.url.server>
+                <deploy-targets>AdminServer</deploy-targets>
+                <destination.cache>t3://localhost:7001</destination.cache>
+                <build_name>DEV</build_name>
+                <app.version>${project.version}</app.version>
+                <build.standalone.folder>C:/environment/builds/DEV/standalone</build.standalone.folder>
+                <domain.home>C:\environment\sw\Oracle\Middleware12212\Oracle_Home\user_projects\domains\cash
+                </domain.home>
+                <project.logging.level>FINE</project.logging.level>
+                <jre.version>1.8.0_172_32</jre.version>
 
-                  <app.updater.standalone.folder>C:/environment/builds/DEV/AppUpdater/</app.updater.standalone.folder>
-                  <flyway.url>jdbc:oracle:thin:@//localhost:1522/xepdb1</flyway.url>
-                  <flyway.user>sol_prd_uy</flyway.user>
-                  <flyway.password>sol_prd_uy</flyway.password>
+                <app.updater.standalone.folder>C:/environment/builds/DEV/AppUpdater/</app.updater.standalone.folder>
+                <flyway.url>jdbc:oracle:thin:@//localhost:1522/xepdb1</flyway.url>
+                <flyway.user>sol_prd_uy</flyway.user>
+                <flyway.password>sol_prd_uy</flyway.password>
             </properties>
         </profile>
         <profile>
@@ -398,6 +400,7 @@
                     <user>${user.server}</user>
                     <password>${password.server}</password>
                     <upload>true</upload>
+                    <failOnError>false</failOnError>
                     <remote>false</remote>
                     <debug>false</debug>
                     <verbose>true</verbose>
