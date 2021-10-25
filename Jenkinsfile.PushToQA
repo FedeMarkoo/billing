@@ -6,12 +6,15 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                     sh '''(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml) |
-                            while IFS= read -r line; do
-                                if [[ "$line" =~ ^"sol-service-billing-view"* ]]; then
-                                    echo "yes"
+                     sh '''list=$(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr " " "\n")
+
+                            for addr in $list
+                            do
+                                if [[ $addr == "sol-service-billing-view"* ]]; then
+                                    echo $addr
                                 fi
                             done
+                           
                      '''
                 }
             }
