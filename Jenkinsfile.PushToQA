@@ -1,6 +1,15 @@
 pipeline {
     agent any
     stages {
+        stage("init") {
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                    sh "mvn com.oracle.maven:oracle-maven-sync:push -Doracle-maven-sync.oracleHome=%ORACLE_HOME% -Doracle-maven-sync.testingOnly=false"
+                }
+            }
+        } 
         stage("clean") {
             steps {
                 withMaven(
@@ -16,8 +25,7 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn com.oracle.maven:oracle-maven-sync:push -Doracle-maven-sync.oracleHome=%ORACLE_HOME% -Doracle-maven-sync.testingOnly=false"
-//                    sh "mvn compile -Dmaven.test.skip=true -f sol-service-billing-view/pom.xml -U"
+                    sh "mvn compile -Dmaven.test.skip=true -f sol-service-billing-view/pom.xml -U"
                 }
             }
         }
