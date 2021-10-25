@@ -7,9 +7,10 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                      sh '''(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml) |
-while IFS= read -r line; do
-  echo "asd" 
-  echo $line
+while IFS= read -r app; do
+  if [[ "$app" =~ sol-service-billing-view*] then
+    echo $app
+   fi
 done
                      '''
                 }
