@@ -7,7 +7,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     sh "mvn install:install-file -DpomFile=oracle-maven-sync-12.2.1.pom -Dfile=oracle-maven-sync-12.2.1.jar"
-                    sh "mvn com.oracle.maven:oracle-maven-sync:push -DoracleHome=/var/jenkins_home/dependencies/maven"
+                    sh "mvn com.oracle.maven:oracle-maven-sync:push -Doracle-maven-sync.oracleHome=/var/jenkins_home/dependencies/maven"
                     sh "mvn com.oracle.maven:oracle-maven-sync:push -Doracle-maven-sync.oracleHome=%ORACLE_HOME% -Doracle-maven-sync.testingOnly=false"
                 }
             }
