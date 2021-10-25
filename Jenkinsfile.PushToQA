@@ -8,7 +8,7 @@ pipeline {
                 ) {
                      sh '''(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml) |
 while IFS= read -r app; do
-  if [[ "$app" == sol-service-billing-view*]] then
+  if [[ "$app" == sol-service-billing-view* ]] then
     echo $app
    fi
 done
