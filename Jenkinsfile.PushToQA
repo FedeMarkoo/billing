@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage("test") {
+        stage("upgrade pom version") {
             steps {
                 withMaven(
                     maven: "MAVEN_3_6_3",
