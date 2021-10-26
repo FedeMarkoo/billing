@@ -7,7 +7,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     sh '''
-                        version=$(git branch --remotes --sort=-refname --list origin/release* | grep necesito la primer linea de esto)
+                        version=$(git branch --remotes --sort=-refname --list origin/release* )//| grep necesito la primer linea de esto)
                         version1="1" //primer numero de la version
                         version2="4" //segund numero de la version
                         version3="0" //tercer numero de la version
