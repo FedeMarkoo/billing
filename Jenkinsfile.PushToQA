@@ -1,6 +1,15 @@
 pipeline {
     agent any
     stages {
+        stage("init") {
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+//                    def applications = "sol-service-billing-view","sol-service-billing-complement";
+                }
+            }
+        }
         stage("upgrade pom version") {
             steps {
                 withMaven(
@@ -47,7 +56,10 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn compile -Dmaven.test.skip=true -f sol-service-billing-view/pom.xml -U"
+                    for app in $applications 
+                    do
+                        sh "mvn compile -Dmaven.test.skip=true -f $app/pom.xml -U"
+                    done
                 }
             }
         }
@@ -56,7 +68,10 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f sol-service-billing-view/pom.xml"
+                    for app in $applications 
+                    do
+                        sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f $app/pom.xml"
+                    done
                 }
             }
         }
@@ -66,12 +81,15 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                      sh '''
-                        for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -d "[:blank:]")
+                        for app in $applications 
                         do
-                            if [[ $app == "sol-service-billing-view-"* ||  $app == "sol-service-billing-complement-api-"* ]]; then
-                                appname=$(echo $app | sed 's/\\r//g')
-                                mvn weblogic:undeploy -P dev,weblogic,!tomcat -f sol-service-billing-view/pom.xml -Dweblogic.name=$appname
-                            fi
+                            for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -d "[:blank:]")
+                            do
+                                if [[ $appName == "$app-"* ||  $appName == "$app-"* ]]; then
+                                    appName=$(echo $appName | sed 's/\\r//g')
+                                    mvn weblogic:undeploy -P dev,weblogic,!tomcat -f $app/pom.xml -Dweblogic.name=$appName
+                                fi
+                            done
                         done
                      '''
                 }
