@@ -8,9 +8,9 @@ pipeline {
                 ) {
                     sh '''
                         version=$(git branch --remotes --sort=-refname --list origin/release*) # grep necesito la primer linea de esto
-                        version1="1" #primer numero de la version
-                        version2="4" #segund numero de la version
-                        version3="0" #tercer numero de la version
+                        version1=1 #primer numero de la version
+                        version2=4 #segund numero de la version
+                        version3=0 #tercer numero de la version
                        
                         commits=$(git log -1 --pretty=format:%s --grep=".*enki")
                         if [ ! -z "$commits" ];then
