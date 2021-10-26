@@ -1,3 +1,4 @@
+applications = ["sol-service-billing-view","sol-service-billing-complement"];
 pipeline {
     agent any
     stages {
@@ -6,11 +7,16 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-//                    def applications = "sol-service-billing-view","sol-service-billing-complement";
+                    sh '''
+                        for app in $applications do
+                            echo $app
+                        done
+                    '''
                 }
             }
         }
         stage("upgrade pom version") {
+            when { expression { false } }   
             steps {
                 withMaven(
                     maven: "MAVEN_3_6_3",
