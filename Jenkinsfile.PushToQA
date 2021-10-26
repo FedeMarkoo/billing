@@ -6,17 +6,25 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh '''
-                        commits=$(git log -1 --pretty=format:%s --grep=".*enki")
-                        if [ ! -z "$commits" ];then
-                            mvn versions:set -DnewVersion=2.50.1-SNAPSHOT -f sol-service-billing-view/pom.xml
-                            mvn versions:commit -f sol-service-billing-view/pom.xml
-                        fi
-                    '''
-                    git add 
-                    git commit -m ChangeVersion
-                    git push
-
+                    withCredentials([usernamePassword(credentialsId: 'example-secure', passwordVariable: 'ASas|12qwe', usernameVariable: 'FedeMarkoo')]) {
+                        def encodedPassword = URLEncoder.encode("$GIT_PASSWORD",'UTF-8')
+                        sh '''
+                            commits=$(git log -1 --pretty=format:%s --grep=".*enki")
+                            if [ ! -z "$commits" ];then
+                                mvn versions:set -DnewVersion=2.50.1-SNAPSHOT -f sol-service-billing-view/pom.xml
+                                mvn versions:commit -f sol-service-billing-view/pom.xml
+                                
+                                git config user.email fede.markoo@gmail.com
+                                git config user.name FedeMarkoo
+                                git add .
+                                git commit -m 'Triggered Build: ${env.BUILD_NUMBER}'
+                                git push https://${GIT_USERNAME}:${encodedPassword}@github.com/${GIT_USERNAME}/example.git
+                            fi
+                        '''
+                        git add 
+                        git commit -m ChangeVersion
+                        git push
+                    }
                 }
             }
         }
