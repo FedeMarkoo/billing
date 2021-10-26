@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage("init") {
+        stage("undeploy old and current versions") {
             steps {
                 withMaven(
                     maven: "MAVEN_3_6_3",
