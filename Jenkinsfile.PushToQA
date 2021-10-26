@@ -11,7 +11,7 @@ pipeline {
                             do
                                 if [[ $app == "sol-service-billing-view-"* ]]; then
                                     appname=${app//"\r"}
-                                    mvn weblogic:undeploy -P dev,weblogic,!tomcat -f sol-service-billing-view/pom.xml -Dweblogic.name=appname
+                                    mvn weblogic:undeploy -P dev,weblogic,!tomcat -f sol-service-billing-view/pom.xml -Dweblogic.name=$appname
                                 fi
                             done
                            
