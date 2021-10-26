@@ -1,4 +1,4 @@
-def applications
+def APPLICATIONS
 pipeline {
     agent any
     stages {
@@ -7,10 +7,10 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    applications = '/sol-service-billing-view sol-service-billing-complement'
+                    APPLICATIONS = 'sol-service-billing-view sol-service-billing-complement'
                     sh '''
-                        echo ${applications}
-                        for app in ${applications} 
+                        echo ${APPLICATIONS}
+                        for app in ${APPLICATIONS} 
                         do
                             echo $app
                         done
@@ -65,7 +65,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     sh '''
-                        for app in $applications 
+                        for app in $APPLICATIONS 
                         do
                             mvn compile -Dmaven.test.skip=true -f $app/pom.xml -U
                         done
@@ -79,7 +79,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     sh '''
-                        for app in $applications 
+                        for app in $APPLICATIONS 
                         do
                             mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f $app/pom.xml
                         done
@@ -93,7 +93,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                      sh '''
-                        for app in $applications 
+                        for app in $APPLICATIONS 
                         do
                             for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -d "[:blank:]")
                             do
