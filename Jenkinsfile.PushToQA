@@ -5,7 +5,7 @@ pipeline {
         stage("init") {
             steps{
                 script{
-                     APPLICATIONS = 'sol-service-billing-view sol-service-billing-complement'
+                     APPLICATIONS='sol-service-billing-view sol-service-billing-complement'
                     sh '''
                         echo ${APPLICATIONS}
                         for app in ${APPLICATIONS} 
