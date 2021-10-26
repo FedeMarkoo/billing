@@ -1,4 +1,4 @@
-applications = ["sol-service-billing-view","sol-service-billing-complement"];
+def applications = "sol-service-billing-view sol-service-billing-complement";
 pipeline {
     agent any
     stages {
@@ -7,9 +7,11 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                        for app in $applications do
-                            sh "echo $app"
+                    sh '''
+                        for app in ${applications} do
+                            echo $app
                         done
+                    '''
                 }
             }
         }
@@ -59,10 +61,12 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    for app in $applications 
-                    do
-                        sh "mvn compile -Dmaven.test.skip=true -f $app/pom.xml -U"
-                    done
+                    sh '''
+                        for app in $applications 
+                        do
+                            mvn compile -Dmaven.test.skip=true -f $app/pom.xml -U
+                        done
+                    '''
                 }
             }
         }
@@ -71,10 +75,12 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    for app in $applications 
-                    do
-                        sh "mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f $app/pom.xml"
-                    done
+                    sh '''
+                        for app in $applications 
+                        do
+                            mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f $app/pom.xml
+                        done
+                    '''
                 }
             }
         }
