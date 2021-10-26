@@ -7,7 +7,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                      sh '''
-                            for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -s "")
+                            for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -d "[:blank:]")
                             do
                                 if [[ $app == "sol-service-billing-view-"* ]]; then
                                     mvn weblogic:undeploy -P dev,weblogic,!tomcat -f sol-service-billing-view/pom.xml -Dweblogic.name=${app//"\r"}
