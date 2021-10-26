@@ -7,7 +7,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     sh '''
-                        commits=$(git log -1 --pretty=format:%s --grep=".*jenki")
+                        commits=$(git log -1 --pretty=format:%s --grep=".*enki")
                         echo $commits
                     '''
                 }
