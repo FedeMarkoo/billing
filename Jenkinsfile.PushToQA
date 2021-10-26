@@ -15,7 +15,7 @@ pipeline {
                            
                                 git add .
                                 git commit -m 'Triggered Build'
-                                git push origin/main
+                                git push HEAD:main
                             fi
                         '''
              //       }
