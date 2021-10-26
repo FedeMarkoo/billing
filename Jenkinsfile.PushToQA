@@ -1,4 +1,4 @@
-def applications = "sol-service-billing-view sol-service-billing-complement";
+def applications = sol-service-billing-view sol-service-billing-complement
 pipeline {
     agent any
     stages {
@@ -8,6 +8,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     sh '''
+                        echo ${applications}
                         for app in ${applications} 
                         do
                             echo $app
