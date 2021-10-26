@@ -7,11 +7,9 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                    sh '''
                         for app in $applications do
-                            echo $app
+                            sh "echo $app"
                         done
-                    '''
                 }
             }
         }
