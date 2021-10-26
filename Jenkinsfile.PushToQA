@@ -8,7 +8,9 @@ pipeline {
                 ) {
                     sh '''
                         commits=$(git log -1 --pretty=format:%s --grep=".*enki")
-                        echo $commits
+                        if [ ! -z "$commits" ];then
+                            mvn versions:set -DnewVersion=2.50.1-SNAPSHOT -f sol-service-billing-view/pom.xml
+                        fi
                     '''
                 }
             }
