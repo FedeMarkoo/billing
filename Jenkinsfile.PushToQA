@@ -8,7 +8,8 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     sh '''
-                        for app in ${applications} do
+                        for app in ${applications} 
+                        do
                             echo $app
                         done
                     '''
