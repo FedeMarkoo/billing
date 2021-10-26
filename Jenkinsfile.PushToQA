@@ -11,11 +11,12 @@ pipeline {
                         if [ ! -z "$commits" ];then
                             mvn versions:set -DnewVersion=2.50.1-SNAPSHOT -f sol-service-billing-view/pom.xml
                             mvn versions:commit -f sol-service-billing-view/pom.xml
-                            git add 
-                            git commit -m ChangeVersion
-                            git push
                         fi
                     '''
+                    git add 
+                    git commit -m ChangeVersion
+                    git push
+
                 }
             }
         }
