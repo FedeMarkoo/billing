@@ -6,19 +6,31 @@ pipeline {
                 withMaven(
                     maven: "MAVEN_3_6_3",
                 ) {
-                   // withCredentials([usernamePassword(credentialsId: 'example-secure', passwordVariable: 'ASas|12qwe', usernameVariable: 'FedeMarkoo')]) {
-                        sh '''
-                            commits=$(git log -1 --pretty=format:%s --grep=".*enki")
+                    sh '''
+                        version=$(git branch --remotes --sort=-refname --list origin/release* | grep necesito la primer linea de esto)
+                        version1="1" //primer numero de la version
+                        version2="4" //segund numero de la version
+                        version3="0" //tercer numero de la version
+                       
+                        commits=$(git log -1 --pretty=format:%s --grep=".*enki")
+                        if [ ! -z "$commits" ];then
+                            version2=$version2+1
+                        
+                        else 
+                            commits=$(git log -1)
                             if [ ! -z "$commits" ];then
-                                mvn versions:set -DnewVersion=2.50.1-SNAPSHOT -f sol-service-billing-view/pom.xml
-                                mvn versions:commit -f sol-service-billing-view/pom.xml
-                           
-                                git add .
-                                git commit -m 'Triggered Build'
-                                git push HEAD:main HEAD:origin/main
+                                version3=$version3+1
                             fi
-                        '''
-             //       }
+                        fi
+                        
+                        
+                        mvn versions:set -DnewVersion=$version1.$version2.$version3 -f sol-service-billing-view/pom.xml
+                        mvn versions:commit -f sol-service-billing-view/pom.xml
+
+                        git add .
+                        git commit -m 'Triggered Build'
+                        git push HEAD:main HEAD:origin/main
+                    '''
                 }
             }
         }
