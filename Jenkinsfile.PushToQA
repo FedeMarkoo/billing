@@ -7,6 +7,7 @@ pipeline {
                     maven: "MAVEN_3_6_3",
                 ) {
                     withCredentials([usernamePassword(credentialsId: 'example-secure', passwordVariable: 'ASas|12qwe', usernameVariable: 'FedeMarkoo')]) {
+                        sh '''
                             commits=$(git log -1 --pretty=format:%s --grep=".*enki")
                             if [ ! -z "$commits" ];then
                                 mvn versions:set -DnewVersion=2.50.1-SNAPSHOT -f sol-service-billing-view/pom.xml
