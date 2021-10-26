@@ -43,6 +43,23 @@ pipeline {
                 }
             }
         }
+        stage("undeploy old and current versions") {
+            steps {
+                withMaven(
+                    maven: "MAVEN_3_6_3",
+                ) {
+                     sh '''
+                        for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -d "[:blank:]")
+                        do
+                            if [[ $app == "sol-service-billing-view-"* ||  $app == "sol-service-billing-complement-api-"* ]]; then
+                                appname=$(echo $app | sed 's/\\r//g')
+                                mvn weblogic:undeploy -P dev,weblogic,!tomcat -f sol-service-billing-view/pom.xml -Dweblogic.name=$appname
+                            fi
+                        done
+                     '''
+                }
+            }
+        }
         stage("deploy") {
             steps {
                 withMaven(
