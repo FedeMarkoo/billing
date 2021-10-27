@@ -6,7 +6,7 @@ pipeline {
             when { expression { false } }   
             steps {
                 withMaven(maven: "MAVEN_3_6_3")
-		{
+				{
                     sh '''
                         version=$(git branch --remotes --sort=-refname --list origin/release*) # grep necesito la primer linea de esto
                         version1=1 #primer numero de la version
@@ -35,9 +35,8 @@ pipeline {
         }
         stage("clean") {
             steps {
-                withMaven(
-                    maven: "MAVEN_3_6_3",
-                ) {
+                withMaven(maven: "MAVEN_3_6_3")
+				{
                     sh "mvn clean -f pom-sonar.xml"
                 }
             }
@@ -47,7 +46,6 @@ pipeline {
                 withMaven(maven: "MAVEN_3_6_3")
 				{
 					sh """
-						echo "${APPLICATIONS}"
 						for appNames in ${APPLICATIONS};
 						do
 							mvn compile -Dmaven.test.skip=true -f \$appNames/pom.xml -U 
@@ -61,7 +59,6 @@ pipeline {
                 withMaven(maven: "MAVEN_3_6_3")
 				{
 					sh """
-						echo "${APPLICATIONS}"
 						for appNames in ${APPLICATIONS};
 						do
 							mvn install -Dmaven.test.skip=true -P weblogic,!tomcat -f \$appNames/pom.xml
@@ -75,7 +72,6 @@ pipeline {
                 withMaven(maven: "MAVEN_3_6_3")
 				{
 					sh """
-						echo "${APPLICATIONS}"
 						for appNames in ${APPLICATIONS};
 						do
 							for app in $(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -d "[:blank:]")
@@ -95,7 +91,6 @@ pipeline {
                 withMaven(maven: "MAVEN_3_6_3")
 				{
 					sh """
-						echo "${APPLICATIONS}"
 						for appNames in ${APPLICATIONS};
 						do
 							mvn weblogic:deploy -P dev -f \$appNames/pom.xml
