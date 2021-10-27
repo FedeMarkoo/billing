@@ -55,5 +55,18 @@ pipeline {
                 }
             }
         }
+		stage("compile and update dependencies") {
+            steps {
+                withMaven(maven: "MAVEN_3_6_3")
+				{
+					sh """
+						for appNames in $APPLICATIONS;
+						do
+							mvn compile -Dmaven.test.skip=true -f \$appNames/pom.xml -U 
+						done
+					"""
+				}
+            }
+        }
      }
 }
