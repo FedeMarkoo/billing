@@ -2,11 +2,11 @@ APPLICATIONS="sol-service-billing-view sol-service-billing-complement"
 pipeline {
     agent any
     stages {
-        sstage("upgrade pom version") {
+        stage("upgrade pom version") {
             when { expression { false } }   
             steps {
                 withMaven(maven: "MAVEN_3_6_3")
-				{
+		{
                     sh '''
                         version=$(git branch --remotes --sort=-refname --list origin/release*) # grep necesito la primer linea de esto
                         version1=1 #primer numero de la version
