@@ -91,7 +91,7 @@ pipeline {
 						for appNames in $APPLICATIONS;
 						do
 							if [ ! -z "\$listApps" ];then
-								listApps=$(mvn weblogic:list-apps -P dev -f \$appNames/pom.xml | tr -d "[:blank:]")
+								listApps=\$(mvn weblogic:list-apps -P dev -f \$appNames/pom.xml | tr -d "[:blank:]")
 							fi
 							for app in \$listApps
                             do
