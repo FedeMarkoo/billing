@@ -96,7 +96,7 @@ pipeline {
 							for app in \$listApps
                             do
                                 if [[ \$appNames == "\$app-"* ||  \$appNames == "\$app-"* ]]; then
-                                    appNames=$(echo \$appNames | sed 's/\\r//g')
+                                    appNames=\$(echo \$appNames | sed 's/\\r//g')
                                     mvn weblogic:undeploy -P dev,weblogic,!tomcat -f \$appNames/pom.xml -Dweblogic.name=\$appNames
                                 fi
                             done
