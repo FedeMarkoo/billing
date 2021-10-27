@@ -7,16 +7,14 @@ pipeline {
     stages {
         stage("init2") {
             steps{
-                script{
-                    sh """
-                        echo "${APPLICATIONS}"
-                        for app in "${APPLICATIONS}";
-                        do
-                            echo "$app"
-                        done
-                    """
-                }
-            }  
+                sh """
+                    echo "${APPLICATIONS}"
+                    for app in "${APPLICATIONS}";
+                    do
+                        echo "$app"
+                    done
+                """
+            }
         }
      }
 }
