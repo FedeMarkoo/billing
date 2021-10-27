@@ -11,7 +11,7 @@ pipeline {
                     echo "${APPLICATIONS}"
                     for app in "${APPLICATIONS}";
                     do
-                        echo "$app"
+                        echo $app
                     done
                 """
             }
