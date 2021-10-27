@@ -27,7 +27,7 @@ pipeline {
                         version2=4 #segund numero de la version
                         version3=0 #tercer numero de la version
                        
-                        commits=$(git log -1 --pretty=format:%s --grep=".*enki")
+                        commits=$(git log -1 --pretty=format:%s --grep=".*feature")
                         if [ ! -z "$commits" ];then
                             version2=$((version2 + 1))
                         else 
