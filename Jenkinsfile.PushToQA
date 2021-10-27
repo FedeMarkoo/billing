@@ -82,5 +82,39 @@ pipeline {
                 }
             }
         }
+		stage("undeploy old and current versions") {
+            steps {
+                withMaven(maven: "MAVEN_3_6_3")
+				{
+					
+					sh """
+						listApps=$(mvn weblogic:list-apps -P dev -f sol-service-billing-view/pom.xml | tr -d "[:blank:]")
+						for appNames in $APPLICATIONS;
+						do
+							for app in \$listApps
+                            do
+                                if [[ \$appNames == "$app-"* ||  \$appNames == "$app-"* ]]; then
+                                    appNames=$(echo \$appNames | sed 's/\\r//g')
+                                    mvn weblogic:undeploy -P dev,weblogic,!tomcat -f \$appNames/pom.xml -Dweblogic.name=\$appNames
+                                fi
+                            done
+						done
+					"""
+                }
+            }
+        }
+        stage("deploy") {
+            steps {
+                withMaven(maven: "MAVEN_3_6_3")
+				{
+					sh """
+						for appNames in $APPLICATIONS;
+						do
+							mvn weblogic:deploy -P dev -f \$appNames/pom.xml
+						done
+					"""
+                }
+            }
+        }
      }
 }
