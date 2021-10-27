@@ -10,7 +10,7 @@ pipeline {
                 script{
                     sh """
                         echo "${APPLICATIONS}"
-                        for app in ${APPLICATIONS} 
+                        for app in $APPLICATIONS; 
                         do
                             echo "$app"
                         done
