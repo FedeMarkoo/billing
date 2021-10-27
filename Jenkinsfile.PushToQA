@@ -9,7 +9,7 @@ pipeline {
             steps{
                 sh """
                     echo "${APPLICATIONS}"
-                    for appNames in "${APPLICATIONS}";
+                    for appNames in ${APPLICATIONS};
                     do
                         echo \$appNames
                     done
