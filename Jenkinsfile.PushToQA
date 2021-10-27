@@ -9,7 +9,7 @@ pipeline {
                 }
             }
         }
-        stage("init") {
+        stage("init2") {
             steps{
                 script{
                     sh '''
