@@ -1,6 +1,9 @@
 APPLICATIONS="sol-service-billing-view sol-service-billing-complement"
 pipeline {
     agent any
+     environment {
+        REVISION = ""
+    }
     stages {
         stage("upgrade pom version") {
             when { expression { false } }   
