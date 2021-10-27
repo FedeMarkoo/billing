@@ -70,6 +70,7 @@ pipeline {
             }
         }
 		stage("install") {
+		when { expression { false } }  
             steps {
                 withMaven(maven: "MAVEN_3_6_3")
 				{
