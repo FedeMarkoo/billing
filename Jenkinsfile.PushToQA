@@ -1,4 +1,4 @@
-APPLICATIONS="sol-service-billing-view sol-service-billing-complement"
+APPLICATIONS="sol-service-billing-view sol-service-billing-complement-api"
 pipeline {
     agent any
     environment {
