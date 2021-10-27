@@ -11,7 +11,7 @@ pipeline {
                     echo "${APPLICATIONS}"
                     for appNames in "${APPLICATIONS}";
                     do
-                        echo $appNames
+                        echo \$appNames
                     done
                 """
             }
