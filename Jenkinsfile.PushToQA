@@ -1,6 +1,9 @@
 def APPLICATIONS
 pipeline {
     agent any
+    environment {
+        REVISION = ""
+    }
     stages {
         stage('init') {
             steps {
