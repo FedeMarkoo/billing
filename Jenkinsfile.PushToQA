@@ -1,4 +1,4 @@
-APPLICATIONS = ""
+APPLICATIONS="sol-service-billing-view sol-service-billing-complement"
 pipeline {
     agent any
     environment {
@@ -8,13 +8,14 @@ pipeline {
         stage('init') {
             steps {
                 script{
-                    APPLICATIONS="sol-service-billing-view sol-service-billing-complement"
+                    //APPLICATIONS="sol-service-billing-view sol-service-billing-complement"
                 }
             }
         }
         stage("init2") {
             steps{
                 script{
+                    echo $APPLICATIONS
                     sh '''
                         echo ${APPLICATIONS}
                         for app in ${APPLICATIONS} 
