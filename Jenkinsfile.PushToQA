@@ -1,4 +1,4 @@
-def APPLICATIONS
+APPLICATIONS = ""
 pipeline {
     agent any
     environment {
