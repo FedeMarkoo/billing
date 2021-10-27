@@ -7,13 +7,13 @@ pipeline {
     stages {
         stage("init2") {
             steps{
-                sh '''
+                sh """
                     echo "${APPLICATIONS}"
                     for appNames in "${APPLICATIONS}";
                     do
                         echo $appNames
                     done
-                '''
+                """
             }
         }
      }
