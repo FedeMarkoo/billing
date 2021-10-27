@@ -47,5 +47,13 @@ pipeline {
                 }
             }
         }
+		stage("clean") {
+            steps {
+                withMaven(maven: "MAVEN_3_6_3")
+				{
+                    sh "mvn clean -f pom-sonar.xml"
+                }
+            }
+        }
      }
 }
