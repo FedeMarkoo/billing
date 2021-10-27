@@ -16,13 +16,13 @@ pipeline {
             steps{
                 script{
                     echo "$APPLICATIONS"
-                    sh '''
-                        echo ${APPLICATIONS}
+                    sh """
+                        echo "${APPLICATIONS}"
                         for app in ${APPLICATIONS} 
                         do
-                            echo $app
+                            echo "$app"
                         done
-                    '''
+                    """
                 }
             }  
         }
